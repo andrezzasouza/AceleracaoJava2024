@@ -1,18 +1,14 @@
-## Getting Started
+# Fibonacci
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Dado um número inteiro `x`, imprima uma sequência de Fibonacci de tamanho `x`.
 
-## Folder Structure
+```
+// Exemplo de saída para uma sequência de tamanho 5
+0 1 1 2 3
 
-The workspace contains two folders by default, where:
+// Exemplo de saída para uma sequência de tamanho 10
+0 1 1 2 3 5 8 13 21 34
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+// Exemplo de saída para uma sequência de tamanho 20
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181
+```
