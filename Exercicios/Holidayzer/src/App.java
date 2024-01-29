@@ -32,8 +32,6 @@ public class App {
     if (chosenOption == 1) {
       userInput.close();
       printHolidays(allHolidays);
-      // fix the printed format
-      // currently 2024-11-25
       return;
     }
 
@@ -41,8 +39,9 @@ public class App {
       boolean isValidDateAsString = false;
       String insertedValue;
 
+      userInput.nextLine();
+
       do {
-        userInput.nextLine();
 
         System.out.println("Qual é a data que você deseja saber se é um feriado ou não? (Formato: dd-mm-aaaa)");
 
@@ -54,6 +53,8 @@ public class App {
           System.out.println("Data inválida! O formato deve ser: dd-mm-aaaa. O ano deve ser 2024. Tente novamente!");
 
       } while (!isValidDateAsString);
+
+      userInput.close();
 
       LocalDate inputtedDate = formatDateStringToLocalDate(insertedValue);
       boolean isAHoliday = checkIfDateIsAHoliday(allHolidays, inputtedDate);
@@ -83,13 +84,6 @@ public class App {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     return date.format(formatter);
   }
-
-  // public static LocalDate formatLocalDateToDateString(LocalDate date) {
-  // System.out.println(date.getClass());
-  // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-  // LocalDate.parse(date, formatter);
-  // return;
-  // }
 
   public static List<Holiday> generateHolidays() {
     List<Holiday> listOfHolidays = new ArrayList<Holiday>();
@@ -136,13 +130,25 @@ public class App {
   }
 
   public static boolean validateDateAsString(String insertedValue) {
-    String dayData = insertedValue.substring(0, 2);
-    String monthData = insertedValue.substring(3, 5);
-    String yearData = insertedValue.substring(6, 10);
+    boolean isValidDateAsString = false;
 
     boolean hasCorrectLength = insertedValue.length() == 10;
 
+    if (!hasCorrectLength) {
+      System.out.println("A data deve ter 10 caracteres!");
+      return isValidDateAsString;
+    }
+
     boolean hasCorrectSeparator = insertedValue.charAt(2) == '-' && insertedValue.charAt(5) == '-';
+
+    if (!hasCorrectSeparator) {
+      System.out.println("O dia, mês e ano devem estar separados por um traço (-).");
+      return isValidDateAsString;
+    }
+
+    String dayData = insertedValue.substring(0, 2);
+    String monthData = insertedValue.substring(3, 5);
+    String yearData = insertedValue.substring(6, 10);
 
     boolean isConvertibleToInt = isConvertibleToInteger(dayData, monthData, yearData);
 
@@ -150,11 +156,11 @@ public class App {
 
     boolean areDayAndMonthValid = checkIfDayAndMonthAreValid(dayData, monthData);
 
-    boolean isValidDateAsString = hasCorrectLength && hasCorrectSeparator && isConvertibleToInt && isTheYear2024
+    isValidDateAsString = hasCorrectLength && hasCorrectSeparator && isConvertibleToInt && isTheYear2024
         && areDayAndMonthValid;
 
-    // improve how it deals with problems. It should return if it doesn't match
-    // things before an error is thrown
+    // TODO:
+    // Return better error messages
 
     return isValidDateAsString;
   }
